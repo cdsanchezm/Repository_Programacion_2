@@ -1,11 +1,12 @@
 package daos;
 
 
-import java.io.BufferedReader;
+import java.io.BufferedReader ;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import model.Pet;
 
@@ -105,6 +106,20 @@ public  class Manager {
 				}
 	    		id = mc + "-" + species+sex+size+PD+ "-" + petArr.get(i).getNeighborhood();
 	    		petArr.get(i).setId(id);
+	    		for (int j = 0; j < i; j++) {
+	    			try {
+	    				if (petArr.get(j).getId().equals(id)) {
+							mc = mc +1;
+							 throw new Exception("IdentifierExistsException");
+						}
+						
+					} catch (Exception IdentifierExistsException) {
+						
+						id = mc + " - " + species+sex+size+PD+ " - " + petArr.get(i).getNeighborhood();
+			    		petArr.get(i).setId(id);
+					}
+					
+				}
 				}
 	    		
 			return "El proceso de asignación de ids ha finalizado";
@@ -173,6 +188,29 @@ public  class Manager {
 			}
 	    	
 	    	return null;
+	    }
+	    
+	     public List findByMultipleFields (String sex, String species,String size, String potentDangerous) {
+	   	
+	    List pd = new ArrayList<>();
+	    String pc = "";
+	    boolean dangerous = false;
+	    
+	    if (potentDangerous.equals("si".toUpperCase())) {
+			dangerous = true;
+		}else if (potentDangerous.equals("no".toUpperCase())) {
+			dangerous = false;
+		}
+      
+	      for (int i = 0; i < petArr.size(); i++) {
+	    	 
+	    	  
+	     if (petArr.get(i).getSex().equals(sex.toUpperCase()) && petArr.get(i).getSpecies().equals(species.toUpperCase()) && petArr.get(i).getSize().equals(size.toUpperCase()) && petArr.get(i).isPotentDangerous() == dangerous){
+				
+	    		pd.add(petArr.get(i).getId());
+			}
+		}
+	    	return pd;
 	    }
 
 }

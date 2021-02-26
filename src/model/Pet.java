@@ -80,13 +80,14 @@ public class Pet {
 
     @Override
     public String toString() {
-        return "Pet" +
+        return" " +'\n' + "Pet" +
                 "ID: " + id + '\n' +
                 "Microchip: " + microchip +'\n' + 
                 "Species: " + species + '\n' +
                 "Gender: " + sex + '\n' +
                 "Size: " + size + '\n' +
                 "Potentially Dangerous: " + potentDangerous +'\n' +
-                "Neighborhood: " + neighborhood + '\n';
+                "Neighborhood: " + neighborhood + '\n'+
+                "  ";
     }
 }
